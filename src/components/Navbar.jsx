@@ -4,11 +4,15 @@ import LoginPopup from "../mini-Compo/loginPopup";
 
 import React from "react";
 import { dropdownContent } from "../utils/menuData";
+import { useNavigate } from "react-router-dom";
+import SearchResultTab from "../mini-Compo/SearchResultTab";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [activeTab, setActivetab] = useState(null);
   const [showLoginOptions, setLoginOptions] = useState(false)
+
+  const navigate = useNavigate()
 
   return (
     <nav className="w-full sticky top-0 bg-[#212121] text-white md:px-28 z-100">
@@ -28,13 +32,13 @@ const Navbar = () => {
       </div>
 
       <div className=" z-50 shadow-md bg-[#212121]">
-        <div className="flex items-center justify-around md:px-32 py-3">
+        <div className="flex items-center justify-around pl-[-5px] md:px-32 py-3">
           {/* Logo */}
-          <div className="text-2xl font-bold text-white">
+          <div className="text-xl font-bold text-white cursor-pointer" onClick={()=>navigate('/')}>
             <img
               src="/tata-Cliq-logo.png"
               alt="navbar-logo"
-              className="h-10 w-auto filter invert"
+              className=" h-6 md:h-10 w-auto filter invert"
             />
           </div>
 
@@ -88,7 +92,7 @@ const Navbar = () => {
 
           {/* Search and icons */}
           <div className="flex items-center gap-4 relative">
-            <FiSearch className="absolute left-3 text-white" />
+            <FiSearch className="absolute w-full left-3 text-white" />
             <div className="relative">
               <input
                 type="text"
@@ -97,10 +101,13 @@ const Navbar = () => {
                 placeholder="Search for products"
                 className="px-4 py-3 pl-8 h-full text-md border rounded-lg w-48 md:w-96 outline-none focus:ring-2 bg-zinc-700 focus:ring-pink-500"
               />
+              {
+                search.length > 0 && <SearchResultTab search={search} setSearch={setSearch} />
+              }
             </div>
 
             {/* Icons */}
-            <div className="flex items-center gap-5 text-2xl text-white">
+            <div className="flex items-center gap-3 text-2xl text-white">
               <FiHeart className="cursor-pointer hover:scale-120 duration-150" />
               <FiShoppingBag className="cursor-pointer hover:scale-120 duration-150" />
             </div>

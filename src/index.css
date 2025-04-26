@@ -7,7 +7,7 @@ body {
     height: 100vh; /* Full height */
     box-sizing: border-box; /* Includes padding & border in total size */
     background-color: #ECECEC; /* Base background color */
-
+    overflow-x: hidden;
   }
 
   
