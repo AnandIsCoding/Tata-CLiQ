@@ -10,16 +10,20 @@ import {
 import ShareDialog from "../mini-Compo/ShareDialog";
 import toast from "react-hot-toast";
 
+
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showShareDialog, setShowshareDialog] = useState(false);
+  const [showMoreoffer, setShowmoreoffer] = useState(false)
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const res = await fetch(`${baseUrl}/products/${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (error) {
@@ -30,7 +34,7 @@ function ProductPage() {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id,baseUrl]);
 
   if (loading) {
     return (
@@ -52,7 +56,7 @@ function ProductPage() {
         {/* Left Side - Images */}
         <div className="grid grid-cols-2 gap-2">
           {[...Array(5)].map((_, idx) => (
-            <div key={idx} className="border p-2 rounded-md bg-white">
+            <div key={idx} className=" p-2 rounded-md bg-white">
               <img
                 src={product.image}
                 alt={product.title}
@@ -91,9 +95,12 @@ function ProductPage() {
             <p>🎉 15% off on HSBC Premier Cards</p>
             <p>🎉 Flat 12% off on ₹3999 | Use Code: SUMMER12</p>
             <p>🎉 25% off for New Customers | Use Code: NEW25</p>
-            <p className="text-pink-600 font-semibold cursor-pointer">
-              See 5 More Offers
+            <p onClick={()=>setShowmoreoffer(prev => !prev)} className="text-pink-600 font-semibold cursor-pointer">
+              {showMoreoffer ? 'See less' : 'See 3 More Offers'}
             </p>
+            <p className={`${showMoreoffer ? 'block' : 'hidden'}`}>🎉 10% off on Hii Bank Cards</p>
+            <p className={`${showMoreoffer ? 'block' : 'hidden'}`}>🎉 15% off on Byee Premier Cards</p>
+            <p className={`${showMoreoffer ? 'block' : 'hidden'}`}>🎉 Flat 19% off on ₹3999 | Use Code: SUMMER12</p>
           </div>
 
           {/* Size Selection */}
@@ -115,14 +122,15 @@ function ProductPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold">Ship To</h3>
-              <button className="text-pink-600 text-sm font-semibold">
+              <label className="text-pink-600 text-sm font-semibold cursor-pointer" htmlFor='pincode'>
                 Change Pincode
-              </button>
+              </label>
             </div>
             <input
               type="text"
               placeholder="Delhi, 110001"
               className="border rounded-md p-2  text-gray-700"
+              id='pincode'
             />
 
             <div className="flex items-center gap-3 text-sm mt-2">
@@ -193,8 +201,8 @@ function ProductPage() {
                           <p className="text-sm font-medium text-gray-900">
                             Tata CLiQ
                           </p>
-                          <p className="mt-1 text-sm text-gray-500">
-                            Hey! Payment Integration Takes Time !!
+                          <p className="mt-1 text-sm text-gray-500 capitalize">
+                            Sorry !! We are not accepting new Order Right Now
                           </p>
                         </div>
                       </div>

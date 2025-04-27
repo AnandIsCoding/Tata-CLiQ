@@ -1,18 +1,25 @@
 import { useState } from "react";
-import { FiSearch, FiHeart, FiShoppingBag, FiBell, FiGift, FiDollarSign ,FiUser, FiArchive,} from "react-icons/fi";
+import {
+  FiSearch,
+  FiHeart,
+  FiShoppingBag
+} from "react-icons/fi";
 import LoginPopup from "../mini-Compo/loginPopup";
 
 import React from "react";
 import { dropdownContent } from "../utils/menuData";
 import { useNavigate } from "react-router-dom";
 import SearchResultTab from "../mini-Compo/SearchResultTab";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [activeTab, setActivetab] = useState(null);
-  const [showLoginOptions, setLoginOptions] = useState(false)
+  const [showLoginOptions, setLoginOptions] = useState(false);
+  const cartItems = useSelector((state) => state.cart.items || [])
+  console.log('Cart is ->> ',cartItems)
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <nav className="w-full sticky top-0 bg-[#212121] text-white md:px-28 z-100">
@@ -23,18 +30,24 @@ const Navbar = () => {
           <span className="cursor-pointer hidden md:block">Gift Card</span>
           <span className="cursor-pointer hidden md:block">CLiQ</span>
           <span className="cursor-pointer">Track Orders</span>
-          <span className="cursor-pointer relative" onMouseEnter={()=>setLoginOptions(true)}  onMouseLeave={()=>setLoginOptions(false)}>Sign In / Sign Up
-              {
-                showLoginOptions === true && <LoginPopup/>
-              }
+          <span
+            className="cursor-pointer relative"
+            onMouseEnter={() => setLoginOptions(true)}
+            onMouseLeave={() => setLoginOptions(false)}
+          >
+            Sign In / Sign Up
+            {showLoginOptions === true && <LoginPopup />}
           </span>
         </div>
       </div>
 
-      <div className=" z-50 shadow-md bg-[#212121]">
+      <div className="z-50 shadow-md bg-[#212121]">
         <div className="flex items-center justify-around pl-[-5px] md:px-32 py-3">
           {/* Logo */}
-          <div className="text-xl font-bold text-white cursor-pointer" onClick={()=>navigate('/')}>
+          <div
+            className="text-xl font-bold text-white cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <img
               src="/tata-Cliq-logo.png"
               alt="navbar-logo"
@@ -58,7 +71,9 @@ const Navbar = () => {
                         <h4>{heading}</h4>
                         <ul>
                           {items.map((item) => (
-                            <li className="hover:underline" key={item}>{item}</li>
+                            <li className="hover:underline" key={item}>
+                              {item}
+                            </li>
                           ))}
                         </ul>
                       </div>
@@ -75,16 +90,20 @@ const Navbar = () => {
               Brands
               {activeTab === "brands" && (
                 <div className="mega-dropdown">
-                {Object.entries(dropdownContent.Brands).map(([heading, items]) => (
-              <div className="column" key={heading}>
-                <h4>{heading}</h4>
-                <ul>
-                  {items.map((item) => (
-                    <li className="hover:underline" key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                  {Object.entries(dropdownContent.Brands).map(
+                    ([heading, items]) => (
+                      <div className="column" key={heading}>
+                        <h4>{heading}</h4>
+                        <ul>
+                          {items.map((item) => (
+                            <li className="hover:underline" key={item}>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )
+                  )}
                 </div>
               )}
             </span>
@@ -101,16 +120,39 @@ const Navbar = () => {
                 placeholder="Search for products"
                 className="px-4 py-3 pl-8 h-full text-md border rounded-lg w-48 md:w-96 outline-none focus:ring-2 bg-zinc-700 focus:ring-pink-500"
               />
-              {
-                search.length > 0 && <SearchResultTab search={search} setSearch={setSearch} />
-              }
+              {search.length > 0 && (
+                <SearchResultTab search={search} setSearch={setSearch} />
+              )}
             </div>
 
             {/* Icons */}
-            <div className="flex items-center gap-3 text-2xl text-white">
-              <FiHeart className="cursor-pointer hover:scale-120 duration-150" />
-              <FiShoppingBag className="cursor-pointer hover:scale-120 duration-150" />
-            </div>
+            <div className="flex items-center gap-4 text-3xl text-white relative">
+  <FiHeart
+    onClick={() => navigate("/wishlist")}
+    className="cursor-pointer hover:scale-110 transition-transform duration-200 hover:text-gray-300"
+  />
+  {/* Badge */}
+  {cartItems.length > 0 && (
+      <span className="absolute -top-2 right-9 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {cartItems.length}
+      </span>
+    )}
+
+  <div className="relative">
+    <FiShoppingBag
+      onClick={() => navigate("/cart")}
+      className="cursor-pointer hover:scale-110 transition-transform duration-200 hover:text-gray-300"
+    />
+    
+    {/* Badge */}
+    {cartItems.length > 0 && (
+      <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {cartItems.length}
+      </span>
+    )}
+  </div>
+</div>
+
           </div>
         </div>
       </div>

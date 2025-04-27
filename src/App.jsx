@@ -2,12 +2,15 @@ import React, { Suspense, useEffect } from 'react'
 import { lazy } from 'react';
 import Slider from './mini-Compo/Slider';
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import SpecificCategory from './pages/SpecificCategory';
-import Footer from './components/Footer';
-import ProductPage from './pages/ProductPage';
+// Lazy imports
+const Home = lazy(() => import('./pages/Home'));
+const SpecificCategory = lazy(() => import('./pages/SpecificCategory'));
+const Footer = lazy(() => import('./components/Footer'));
+const ProductPage = lazy(() => import('./pages/ProductPage'));
 const Navbar = lazy(()=>import('./components/Navbar'))
 const Offer = lazy(()=>import('./mini-Compo/Offer'))
+const Cart = lazy(()=>import('./pages/Cart'))
+const Wishlist = lazy(()=>import('./pages/Wishlist'))
 function App() {
   const disableContextMenu = (event) => {
     event.preventDefault();  // Disable the right-click menu
@@ -43,6 +46,8 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/:category' element={<SpecificCategory/>} />
         <Route path="/product/:id" element={<ProductPage/>} />
+        <Route path='/cart' element={<Cart/>} />
+        <Route path='/wishlist' element={<Wishlist/>} />
       </Routes>
 
       <Footer/> 
