@@ -1,23 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FiSearch,
   FiHeart,
   FiShoppingBag
 } from "react-icons/fi";
-import LoginPopup from "../mini-Compo/loginPopup";
+import LoginPopup from "../mini-Compo/LoginPopup";
 
 import React from "react";
 import { dropdownContent } from "../utils/menuData";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SearchResultTab from "../mini-Compo/SearchResultTab";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+
   const [search, setSearch] = useState("");
   const [activeTab, setActivetab] = useState(null);
   const [showLoginOptions, setLoginOptions] = useState(false);
   const cartItems = useSelector((state) => state.cart.items || [])
-  console.log('Cart is ->> ',cartItems)
+ const {user} = useAuth0()
+  const {isAuthenticated} = useAuth0()
+
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem('user');
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser)); // ✅ Parse user object
+  //   }
+  // }, [isAuthenticated]);
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem('user');
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser)); // ✅ Parse user object
+  //   }
+  // }, []);
+  // const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const res = await fetch("https://fakestoreapi.com/products");
+  //     const data = await res.json();
+  //     setProducts(data);
+  //     } catch (error) {
+  //       console.log('Error in Fetching ')
+  //     }
+  //   };
+
+  //   fetchProducts();
+  // }, []);
 
   const navigate = useNavigate();
 
@@ -27,15 +58,15 @@ const Navbar = () => {
         <span className="font-semibold"></span>
         <div className="flex items-center gap-6 ">
           <span className="cursor-pointer">CLiQ Cash</span>
-          <span className="cursor-pointer hidden md:block">Gift Card</span>
+          <NavLink to='gift-cards' className="cursor-pointer hidden md:block">Gift Card</NavLink>
           <span className="cursor-pointer hidden md:block">CLiQ</span>
-          <span className="cursor-pointer">Track Orders</span>
+          <NavLink to='/orders' className="cursor-pointer">Track Orders</NavLink>
           <span
             className="cursor-pointer relative"
             onMouseEnter={() => setLoginOptions(true)}
             onMouseLeave={() => setLoginOptions(false)}
           >
-            Sign In / Sign Up
+            {user ? 'Account options' : 'Sign In / Sign Up'}
             {showLoginOptions === true && <LoginPopup />}
           </span>
         </div>
@@ -57,7 +88,7 @@ const Navbar = () => {
 
           {/* Categories */}
           <div className="hidden relative lg:flex gap-6 text-lg font-medium text-white">
-            <span
+          <span
               className="cursor-pointer hover:bg-white h-full px-6 py-3 hover:text-black duration-300"
               onMouseEnter={() => setActivetab("categories")}
               onMouseLeave={() => setActivetab(null)}
@@ -132,11 +163,11 @@ const Navbar = () => {
     className="cursor-pointer hover:scale-110 transition-transform duration-200 hover:text-gray-300"
   />
   {/* Badge */}
-  {cartItems.length > 0 && (
+  {/* {cartItems.length > 0 && (
       <span className="absolute -top-2 right-9 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
         {cartItems.length}
       </span>
-    )}
+    )} */}
 
   <div className="relative">
     <FiShoppingBag

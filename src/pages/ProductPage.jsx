@@ -9,6 +9,9 @@ import {
 } from "react-icons/fa";
 import ShareDialog from "../mini-Compo/ShareDialog";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import { addToCart, removeFromCart } from "../redux/slices/cart.slice";
 
 
 function ProductPage() {
@@ -18,6 +21,10 @@ function ProductPage() {
   const [showShareDialog, setShowshareDialog] = useState(false);
   const [showMoreoffer, setShowmoreoffer] = useState(false)
   const baseUrl = import.meta.env.VITE_BASE_URL;
+
+  const cartItems = useSelector((state) => state.cart.items);
+  const {isAuthenticated, loginWithRedirect} = useAuth0()
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
@@ -36,11 +43,33 @@ function ProductPage() {
     fetchProduct();
   }, [id,baseUrl]);
 
+
   if (loading) {
     return (
       <div className="text-center py-10 font-semibold text-lg">Loading...</div>
     );
   }
+
+  const handleCart = (event, product) => {
+    event.stopPropagation();  // ✨ ADD THIS AS FIRST LINE
+  event.preventDefault();
+    
+  // Double check isAuthenticated
+  if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
+    console.log("User not authenticated, redirecting to login...");
+    toast('Please login to save your cart.', { icon: "🔒" });
+    loginWithRedirect(); 
+    return;
+  } else {      
+      if (cartItems.some((item) => item.id === product?.id)) {
+        dispatch(removeFromCart(product));
+        toast.success('Product Removed From Cart');
+      } else {
+        dispatch(addToCart(product));
+        toast.success('Product Added To Cart');
+      }
+    }
+  };
 
   if (!product) {
     return (
@@ -170,10 +199,9 @@ function ProductPage() {
 
           {/* Share + Buy + Add to Bag */}
           <div className="flex gap-2 mt-6">
-            <button className="p-3 border rounded-md cursor-pointer">
+            <button onClick={() => setShowshareDialog((prev) => !prev)} className="p-3 border rounded-md cursor-pointer">
               <FaShareAlt
                 size={20}
-                onClick={() => setShowshareDialog((prev) => !prev)}
               />
             </button>
             <button className="p-3 border rounded-md">
@@ -222,8 +250,12 @@ function ProductPage() {
             >
               Buy Now
             </button>
-            <button className="flex-1 border border-pink-600 text-pink-600 hover:bg-pink-50 py-3 rounded-md font-semibold">
-              Add to Bag
+            <button onClick={(event) => handleCart(event, product)} className="flex-1 border cursor-pointer border-pink-600 text-pink-600 hover:bg-pink-50 py-3 rounded-md font-semibold">
+              {cartItems.some((item) => item.id === product.id) ? (
+                           'Remove From Bag'
+                        ) : (
+                          'Add To Bag'
+                        )}
             </button>
           </div>
         </div>

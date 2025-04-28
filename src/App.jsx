@@ -2,6 +2,8 @@ import React, { Suspense, useEffect } from 'react'
 import { lazy } from 'react';
 import Slider from './mini-Compo/Slider';
 import { Route, Routes } from 'react-router-dom';
+import Profile from './pages/Profile';
+
 // Lazy imports
 const Home = lazy(() => import('./pages/Home'));
 const SpecificCategory = lazy(() => import('./pages/SpecificCategory'));
@@ -11,6 +13,8 @@ const Navbar = lazy(()=>import('./components/Navbar'))
 const Offer = lazy(()=>import('./mini-Compo/Offer'))
 const Cart = lazy(()=>import('./pages/Cart'))
 const Wishlist = lazy(()=>import('./pages/Wishlist'))
+const Orders = lazy(()=>import('./pages/Orders'))
+const GiftCards = lazy(()=>import('./pages/GiftCards'))
 function App() {
   const disableContextMenu = (event) => {
     event.preventDefault();  // Disable the right-click menu
@@ -27,10 +31,13 @@ function App() {
   //     window.removeEventListener('keydown', handleKeyDown);
   //   };
   // }, []);
+
+
+
   
 
   return (
-    <div onContextMenu={disableContextMenu} >
+    <div className='select-none' onContextMenu={disableContextMenu} >
      <Suspense
       // Fallback loader while components are loading
         fallback={
@@ -48,6 +55,9 @@ function App() {
         <Route path="/product/:id" element={<ProductPage/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/wishlist' element={<Wishlist/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/orders' element={ <Orders/> } />
+        <Route path='/gift-cards' element={ <GiftCards/> } />
       </Routes>
 
       <Footer/> 
