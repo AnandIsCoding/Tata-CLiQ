@@ -14,7 +14,7 @@ const Offer = lazy(()=>import('./mini-Compo/Offer'))
 const Cart = lazy(()=>import('./pages/Cart'))
 const Wishlist = lazy(()=>import('./pages/Wishlist'))
 const Orders = lazy(()=>import('./pages/Orders'))
-const GiftCards = lazy(()=>import('./pages/GiftCards'))
+const CliqCare = lazy(()=>import('./pages/CliqCare'))
 function App() {
   const disableContextMenu = (event) => {
     event.preventDefault();  // Disable the right-click menu
@@ -31,10 +31,7 @@ function App() {
   //     window.removeEventListener('keydown', handleKeyDown);
   //   };
   // }, []);
-
-
-
-  
+ 
 
   return (
     <div className='select-none' onContextMenu={disableContextMenu} >
@@ -57,7 +54,7 @@ function App() {
         <Route path='/wishlist' element={<Wishlist/>} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/orders' element={ <Orders/> } />
-        <Route path='/gift-cards' element={ <GiftCards/> } />
+        <Route path='/cliq-care' element={ <CliqCare/> } />
       </Routes>
 
       <Footer/> 

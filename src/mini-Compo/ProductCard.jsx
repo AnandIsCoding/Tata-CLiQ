@@ -2,25 +2,34 @@ import React from "react";
 import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { IoBagHandle } from "react-icons/io5";
 import { useAuth0 } from "@auth0/auth0-react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart,removeFromCart,clearCart } from "../redux/slices/cart.slice";
+import { addToWishlist,removeFromWishlist } from "../redux/slices/wishlist.slice";
+import { useLocation } from "react-router-dom";
+
 
 function ProductCard({ product }) {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.items);
+    const wishlistItems = useSelector((state) => state.wishlist.items || [])
+
+    const location = useLocation();
+const isCartOrWishlistPage = location.pathname === "/cart" || location.pathname === "/wishlist";
+
 
   const handleNavigation = (id) => {
     navigate(`/product/${id}`);
   };
 
   const handleCart = (event, product) => {
-    event.stopPropagation();  // ✨ ADD THIS AS FIRST LINE
+    event.stopPropagation(); 
   event.preventDefault();
     
   // Double check isAuthenticated
@@ -40,25 +49,40 @@ function ProductCard({ product }) {
     }
   };
   
-  const handleWishlist = (event) => {
+  const handleWishlist = (event,product) => {
     event.stopPropagation(); // stop navigating
     event.preventDefault();
-    toast.success('Added to wishlist!');
+    if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
+      console.log("User not authenticated, redirecting to login...");
+      toast('Please login to save your cart.', { icon: "🔒" });
+      loginWithRedirect(); 
+      return;
+    }else {
+      if (wishlistItems.some((item) => item.id === product?.id)) {
+        dispatch(removeFromWishlist(product));
+        toast.success('Product Removed From Wishlist !!');
+      } else {
+        dispatch(addToWishlist(product));
+        toast.success('Product Added To Wishlist !!');
+      }
+    }
   };
   
   return (
     <div
       key={product?.id}
       onClick={() => handleNavigation(product?.id)}
-      className="bg-white cursor-pointer p-4 relative overflow-hidden group rounded-md hover:shadow-lg transition-all"
+      className={`bg-white cursor-pointer p-4 relative overflow-hidden group rounded-md hover:shadow-lg transition-all ${isCartOrWishlistPage ? 'mt-2 md:mt-4 mx-2 md:mx-84 md:px-4' : ''}`}
     >
       <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
         <button
         type="button"  
           className="p-1 rounded-full hover:bg-gray-100 cursor-pointer"
-          onClick={(event) => handleWishlist(event, product?.id)}
+          onClick={(event) => handleWishlist(event, product)}
         >
-          <IoMdHeartEmpty size={20} />
+          {
+            wishlistItems.some((item)=>item.id === product.id) ? <IoMdHeart size={20} color="red"/> : <IoMdHeartEmpty size={20} color="red" />
+          }
         </button>
         <button
         type="button"  

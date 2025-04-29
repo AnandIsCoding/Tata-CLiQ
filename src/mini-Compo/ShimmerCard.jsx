@@ -6,8 +6,8 @@ function ShimmerCard() {
       
       {/* Heart & Bag buttons */}
       <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
-        <div className="h-8 w-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full animate-shimmer" />
-        <div className="h-8 w-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full animate-shimmer" />
+        {/* <div className="h-8 w-8 bg-gradient-to-r from-gray-100 via-gray-100 to-gray-100 rounded-full animate-shimmer" />
+        <div className="h-8 w-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full animate-shimmer" /> */}
       </div>
 
       {/* Image Placeholder */}

@@ -7,48 +7,34 @@ import {
 import LoginPopup from "../mini-Compo/LoginPopup";
 
 import React from "react";
-import { dropdownContent } from "../utils/menuData";
+//import { dropdownContent } from "../utils/menuData";
 import { NavLink, useNavigate } from "react-router-dom";
 import SearchResultTab from "../mini-Compo/SearchResultTab";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import buildFakeStoreMenu from '../utils/menuData'
 
 const Navbar = () => {
+  const [menuData, setMenuData] = useState({ Categories: {}, Brands: {} });
+
+  useEffect(() => {
+    async function loadMenu() {
+      const data = await buildFakeStoreMenu();
+      setMenuData(data);
+    }
+
+    loadMenu();
+  }, []);
 
   const [search, setSearch] = useState("");
   const [activeTab, setActivetab] = useState(null);
   const [showLoginOptions, setLoginOptions] = useState(false);
   const cartItems = useSelector((state) => state.cart.items || [])
+  const wishlistItems = useSelector((state) => state.wishlist.items || [])
  const {user} = useAuth0()
   const {isAuthenticated} = useAuth0()
 
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem('user');
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser)); // ✅ Parse user object
-  //   }
-  // }, [isAuthenticated]);
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem('user');
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser)); // ✅ Parse user object
-  //   }
-  // }, []);
-  // const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const res = await fetch("https://fakestoreapi.com/products");
-  //     const data = await res.json();
-  //     setProducts(data);
-  //     } catch (error) {
-  //       console.log('Error in Fetching ')
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   const navigate = useNavigate();
 
@@ -58,7 +44,7 @@ const Navbar = () => {
         <span className="font-semibold"></span>
         <div className="flex items-center gap-6 ">
           <span className="cursor-pointer">CLiQ Cash</span>
-          <NavLink to='gift-cards' className="cursor-pointer hidden md:block">Gift Card</NavLink>
+          <NavLink to='cliq-care' className="cursor-pointer hidden md:block">Cliq Care</NavLink>
           <span className="cursor-pointer hidden md:block">CLiQ</span>
           <NavLink to='/orders' className="cursor-pointer">Track Orders</NavLink>
           <span
@@ -96,15 +82,15 @@ const Navbar = () => {
               Categories
               {activeTab === "categories" && (
                 <div className="mega-dropdown">
-                  {Object.entries(dropdownContent.Categories).map(
+                  {Object.entries(menuData.Categories).map(
                     ([heading, items]) => (
                       <div className="column" key={heading}>
                         <h4>{heading}</h4>
-                        <ul>
+                        <ul className="gap-10">
                           {items.map((item) => (
-                            <li className="hover:underline" key={item}>
-                              {item}
-                            </li>
+                            <NavLink key={item.id} to={`/product/${item.id}`} className="hover:underline text-sm m-2" >
+                              {item.title}
+                            </NavLink>
                           ))}
                         </ul>
                       </div>
@@ -121,7 +107,7 @@ const Navbar = () => {
               Brands
               {activeTab === "brands" && (
                 <div className="mega-dropdown">
-                  {Object.entries(dropdownContent.Brands).map(
+                  {Object.entries(menuData.Brands).map(
                     ([heading, items]) => (
                       <div className="column" key={heading}>
                         <h4>{heading}</h4>
@@ -163,11 +149,11 @@ const Navbar = () => {
     className="cursor-pointer hover:scale-110 transition-transform duration-200 hover:text-gray-300"
   />
   {/* Badge */}
-  {/* {cartItems.length > 0 && (
+  {wishlistItems.length > 0 && (
       <span className="absolute -top-2 right-9 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-        {cartItems.length}
+        {wishlistItems.length}
       </span>
-    )} */}
+    )}
 
   <div className="relative">
     <FiShoppingBag

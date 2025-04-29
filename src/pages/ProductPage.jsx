@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { addToCart, removeFromCart } from "../redux/slices/cart.slice";
+import { addToWishlist, removeFromWishlist } from "../redux/slices/wishlist.slice";
 
 
 function ProductPage() {
@@ -23,6 +24,7 @@ function ProductPage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const cartItems = useSelector((state) => state.cart.items);
+  const wishlistItems = useSelector((state) => state.wishlist.items || [])
   const {isAuthenticated, loginWithRedirect} = useAuth0()
   const dispatch = useDispatch()
 
@@ -71,6 +73,25 @@ function ProductPage() {
     }
   };
 
+  const handleWishlist = (event,product) => {
+    event.stopPropagation(); // stop navigating
+    event.preventDefault();
+    if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
+      console.log("User not authenticated, redirecting to login...");
+      toast('Please login to save your cart.', { icon: "🔒" });
+      loginWithRedirect(); 
+      return;
+    }else {
+      if (wishlistItems.some((item) => item.id === product?.id)) {
+        dispatch(removeFromWishlist(product));
+        toast.success('Product Removed From Wishlist !!');
+      } else {
+        dispatch(addToWishlist(product));
+        toast.success('Product Added To Wishlist !!');
+      }
+    }
+  };
+
   if (!product) {
     return (
       <div className="text-center py-10 font-semibold text-lg">
@@ -100,8 +121,8 @@ function ProductPage() {
           {/* Title + Heart */}
           <div className="flex items-start justify-between">
             <h1 className="text-2xl font-bold">{product.title}</h1>
-            <button className="p-2 rounded-full hover:bg-gray-200">
-              <FaHeart size={20} className="text-gray-600" />
+            <button onClick={(event)=>handleWishlist(event,product)} className="p-2 rounded-full  cursor-pointer">
+              { wishlistItems.some((item)=>item.id === product.id) ? <FaHeart size={20} className="text-red-600" /> : <FaHeart size={20} className="text-gray-500" />}
             </button>
           </div>
 
@@ -204,8 +225,8 @@ function ProductPage() {
                 size={20}
               />
             </button>
-            <button className="p-3 border rounded-md">
-              <FaHeart size={20} />
+            <button onClick={(event)=>handleWishlist(event,product)} className="p-3 border cursor-pointer rounded-md">
+              {wishlistItems.some((item)=>item.id === product?.id) ? <FaHeart size={20} color="red"/> : <FaHeart size={20} />}
             </button>
             {/* buy now button with custom toast  */}
             <button

@@ -1,15 +1,10 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 function Profile() {
-  const [user, setUser] = useState(null);
+  const {user} = useAuth0()
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   if (!user) {
     return (

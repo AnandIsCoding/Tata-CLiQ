@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"; // Importing configureStore from Redux Toolkit
 import cartReducer from './slices/cart.slice'
-import userReducer from './slices/user.slice'
+import wishlistReducer from './slices/wishlist.slice'
 
 // Configuring the Redux store
 const appStore = configureStore({
     reducer: {
        cart:cartReducer,
-       user:userReducer
+       wishlist:wishlistReducer
     }
 });
 
