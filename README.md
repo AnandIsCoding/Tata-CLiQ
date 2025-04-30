@@ -15,7 +15,7 @@ A fast, responsive e-commerce frontend inspired by [Tata CLiQ](https://www.tatac
 
 ## ✨ Features
 
-- ⚡ **Fast builds** with Vite 6
+- ⚡ **Fast builds** with Vite
 - 🗏️ Category-specific product views
 - 🎨 Fully **responsive design** using Tailwind CSS
 - 🔐 Auth0 login support
