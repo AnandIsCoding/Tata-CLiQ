@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import Slider from './mini-Compo/Slider';
 import { Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy imports
 const Home = lazy(() => import('./pages/Home'));
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <div className='select-none' onContextMenu={disableContextMenu} >
+    <ScrollToTop/> 
      <Suspense
       // Fallback loader while components are loading
         fallback={

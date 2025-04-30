@@ -51,6 +51,7 @@ export default function Slider() {
     <div className="relative  h-[60vh] overflow-hidden mx-2 md:mx-14 rounded-xl cursor-pointer">
       {slides.map((slide, index) => (
         <div
+          data-testid="slide"
           key={index}
           className={`absolute inset-0 w-full h-full object-cover bg-cover bg-center transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}
           style={{ backgroundImage: `url(${slide.image}) ` }}

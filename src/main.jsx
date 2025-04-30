@@ -22,8 +22,8 @@ createRoot(document.getElementById('root')).render(
     redirect_uri: window.location.origin,
     prompt: "login"  // or "consent" depending on your app
   }}
-  cacheLocation="localstorage"   // <<< This is important !!
-  useRefreshTokens={true}         // <<< This avoids full reload issues
+  cacheLocation="localstorage"   // This is important !!
+  useRefreshTokens={true}         //  This avoids full reload issues
 
     
   >

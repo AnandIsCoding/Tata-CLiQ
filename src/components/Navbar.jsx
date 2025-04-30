@@ -43,9 +43,9 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-6 py-3  text-sm bg-black">
         <span className="font-semibold"></span>
         <div className="flex items-center gap-6 ">
-          <span className="cursor-pointer">CLiQ Cash</span>
-          <NavLink to='cliq-care' className="cursor-pointer hidden md:block">Cliq Care</NavLink>
-          <span className="cursor-pointer hidden md:block">CLiQ</span>
+          <span className="cursor-pointer hidden md:block">CLiQ Cash</span>
+          <NavLink to='cliq-care' className="cursor-pointer ">Cliq Care</NavLink>
+          <span className="cursor-pointer hidden  md:block">CLiQ</span>
           <NavLink to='/orders' className="cursor-pointer">Track Orders</NavLink>
           <span
             className="cursor-pointer relative"

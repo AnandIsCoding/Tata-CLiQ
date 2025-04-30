@@ -18,6 +18,7 @@ function Home() {
         {/* <Banner imageUrl={`https://assets.tatacliq.com/medias/sys_master/images/64829260726302.jpg`} /> */}
         <h1 className='text-center text-4xl font-thin '>Hot Boy Fits</h1>
         <Banner imageUrl={`https://assets.tatacliq.com/medias/sys_master/images/63588844339230.png`} redirect={`men's clothing`} />
+        <CategoryStrip/>
         <Banner imageUrl={`https://assets.tatacliq.com/medias/sys_master/images/49733188190238.jpg`} redirect={`/`}/>
       
       

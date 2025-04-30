@@ -5,10 +5,12 @@ import ProductCard from '../mini-Compo/ProductCard'
 function Cart() {
   const cartItems = useSelector(state => state.cart.items)
   if(cartItems.length<1){
-    return <h1 className='text-center text-xl font-semibold my-14'>No Items Found</h1>
+    return <div className='flex justify-center items-center min-h-[50vh] text-xl font-semibold '>
+      <h1 >No Items Found</h1>
+    </div>
   }
   return (
-    <div>
+    <div className='min-h-[50vh]'>
 
         {
           cartItems.map((product,index)=>{

@@ -27,20 +27,18 @@ const otherIssues = [
   {icon:<HiMiniShoppingCart/>, label:'Buying'},
   {icon:<BiSolidOffer/>, label:'Promotion and Offers'},
   {icon:<BsCreditCard2FrontFill/>, label:'EGV / CLiQ Point'}
-
-
 ];
 
 function CliqCare() {
   return (
-    <div className="px-24 py-10 bg-gray-100 min-h-screen">
+    <div className="px-2 md:px-24 py-10 bg-gray-100 min-h-screen">
       <div className="grid md:grid-cols-3 gap-6">
         {/* Left Sidebar */}
         <div className="bg-white p-4 rounded-md">
-          <h2 className="text-lg font-semibold mb-4">All Help Topics</h2>
+          <h2 className="mb-4 text-lg font-semibold">All Help Topics</h2>
           <ul className="space-y-4">
             {helpTopics.map((topic, index) => (
-              <li key={index} className="flex gap-3 items-start">
+              <li key={index} className="flex items-start gap-3 ">
                 <span className="text-sm mt-1">{topic.icon}</span>
                 <div>
                   <h4 className="font-sm text-gray-800">{topic.title}</h4>
@@ -81,7 +79,7 @@ function CliqCare() {
                   key={idx}
                   className="p-4 rounded-md bg-pink-100 text-center hover:bg-pink-200 transition cursor-pointer"
                 >
-                  <div className="flex justify-center text-2xl mb-2 text-pink-400 hover:text-pink-500">{issue.icon}</div>
+                  <div className="flex justify-center text-2xl  text-pink-400 hover:text-pink-500 mb-2">{issue.icon}</div>
                   <div className="font-medium text-pink-800">{issue.label}</div>
                 </div>
               ))}

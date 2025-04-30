@@ -94,14 +94,14 @@ function ProductPage() {
 
   if (!product) {
     return (
-      <div className="text-center py-10 font-semibold text-lg">
+      <div className="text-center min-h-[70vh] py-10 font-semibold text-lg">
         Product not found
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-0 md:mx-auto p-4 md:p-8 overflow-x-hidden">
+    <div className="max-w-7xl mx-0 md:mx-auto p-4 md:p-8 overflow-x-hidden min-h-[70vh]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Left Side - Images */}
         <div className="grid grid-cols-2 gap-2">

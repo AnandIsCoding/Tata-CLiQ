@@ -10,7 +10,7 @@ async function buildFakeStoreMenu() {
       Jewelery: []
     },
     Brands: {
-      "Top Brands": ["Nike", "Adidas", "Puma", "Levi's"] // Static fallback
+      "Top Brands": ["Nike", "Adidas", "Puma", "Levi's"] 
     }
   };
 
