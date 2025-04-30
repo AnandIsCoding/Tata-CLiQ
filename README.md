@@ -50,7 +50,7 @@ A fast, responsive e-commerce frontend inspired by [Tata CLiQ](https://www.tatac
 src/
 ├── assets/                # Static assets
 ├── components/            # Reusable components
-│   └── mini-Compo/        # Smaller, isolated UI units
+├── mini-Compo/            # Smaller, isolated UI units
 ├── pages/                 # Page-level components
 ├── redux/                 # Redux store and slices
 ├── App.jsx                # Main application
@@ -142,7 +142,7 @@ firebase deploy
 
 
 
-| ![Care](public/Care_img.png) | ![Share](public/Share_Img.png) |
+| ![Care](public/Care_img.png) | ![Share](public/Share_img.png) |
 |:--:|:--:|
 | 💬 Care Page | 📤 Share Buttons (WhatsApp & Instagram) |
 
