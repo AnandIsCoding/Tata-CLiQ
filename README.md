@@ -37,7 +37,7 @@ A fast, responsive e-commerce frontend inspired by [Tata CLiQ](https://www.tatac
 | `Vite 6`          | Development & build tooling          |
 | `Tailwind CSS 4`  | Utility-first CSS framework          |
 | `Redux Toolkit`   | State management                     |
-| `React Router v7` | Page routing                         |
+| `React Router Dom` | Page routing                         |
 | `Auth0`           | Secure authentication                |
 | `Vitest` + `RTL`  | Unit/component testing               |
 | `Firebase Hosting`| Production deployment                |
