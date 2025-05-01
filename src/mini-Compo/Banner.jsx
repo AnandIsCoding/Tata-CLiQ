@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+// Banner Component , accept imageUrl to show and redirect path, on click of banner navigate to that specific redirect path url
 const Banner = ({imageUrl,redirect}) => {
   const navigate = useNavigate()
   return (

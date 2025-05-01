@@ -137,19 +137,19 @@ const Footer = () => {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 mb-4">
             <a href="#">
-              <img src="/fb.png" alt="Facebook" className="w-8" />
+              <img src="/fb.png" alt="Facebook_img" className="w-8" />
             </a>
             <a href="#">
-              <img src="/twitter.png" alt="Twitter" className="w-8" />
+              <img src="/twitter.png" alt="Twitter_img" className="w-8" />
             </a>
             <a href="#">
-              <img src="/insta.png" alt="Instagram" className="w-8" />
+              <img src="/insta.png" alt="Instagram_img" className="w-8" />
             </a>
             <a href="#">
-              <img src="/youtube.png" alt="YouTube" className="w-8" />
+              <img src="/youtube.png" alt="YouTube_img" className="w-8" />
             </a>
             <a href="#">
-              <img src="/linked.png" alt="LinkedIn" className="w-8" />
+              <img src="/linked.png" alt="LinkedIn_img" className="w-8" />
             </a>
           </div>
 
@@ -176,11 +176,6 @@ const Footer = () => {
               womenswear
             </a>
             ,
-            {/* <a href="#" className="underline mx-1">menswear</a>, 
-      <a href="#" className="underline mx-1">kidswear</a>, 
-      <a href="#" className="underline mx-1">footwear</a>, 
-      <a href="#" className="underline mx-1">watches</a>, 
-      <a href="#" className="underline mx-1">accessories</a>  */}
             online. You can also check our great offers and get the best prices
             on various products across lifestyle, fashion, and more.
           </p>

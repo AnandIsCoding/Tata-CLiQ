@@ -10,6 +10,7 @@ function SpecificCategory() {
   const [loading, setLoading] = useState(true);
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
+  // onChange on category fetched from useParams parameter fetch products using fetchByCategory
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -36,7 +37,8 @@ function SpecificCategory() {
     <div className="flex flex-col lg:flex-row px-2 md:px-10 py-8 gap-8 min-h-screen bg-gray-50 w-screen overflow:hidden">
       {/* Sidebar */}
       <div className="bg-white rounded-md p-2  w-full lg:w-64">
-        <h2 className="text-2xl font-bold mb-6">Filters</h2>
+      {/* just dummy filters , will be right when integrating good api, fakestoreapi is just basic ones */}
+        <h2 className="text-2xl font-bold mb-6">Dummy Filters</h2>
 
         <div className="mb-8">
           <h3 className="font-semibold mb-3 text-gray-700">Department</h3>

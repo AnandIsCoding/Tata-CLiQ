@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Dummy images for categories
+// Dummy images for categories, later to map with categories fetched from fakestoreapi
 const dummyImages = {
   "electronics": "https://assets.tatacliq.com/medias/sys_master/images/63600371630110.png",
   "jewelery": "https://assets.tatacliq.com/medias/sys_master/images/63600371433502.png",
@@ -10,9 +10,11 @@ const dummyImages = {
 };
 
 const CategoryStrip = () => {
+  // category state empty array to store all categories fetched from api
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
+  // on mount (render) of component fetchCategories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -20,7 +22,7 @@ const CategoryStrip = () => {
         const data = await res.json();
         setCategories(data);
       } catch (error) {
-        console.error("Failed to fetch categories", error);
+        console.error("Failed to fetch categories in CategoriesStrip component---->> ", error);
       }
     };
     fetchCategories();
@@ -28,6 +30,7 @@ const CategoryStrip = () => {
 
   return (
     <div className="flex overflow-x-auto space-x-3 md:space-x-8 justify-center mt-4 p-2">
+    {/* map category of categories only when length of categories array is greater than 1 and onClick on=f category navigate to that category page dynamically */}
       {Array.isArray(categories) && categories.length > 0 ? (
         categories.map((category, index) => (
           <div
@@ -36,6 +39,7 @@ const CategoryStrip = () => {
             className="flex flex-col items-center min-w-[80px] overflow-x-auto md:min-w-[120px] rounded-lg transition-transform cursor-pointer hover:scale-105"
           >
             <div className="w-20 h-20 md:w-28 md:h-28 overflow-hidden ">
+            {/* images dummyImages[category] */}
               <img
                 src={dummyImages[category] || "https://imgs.search.brave.com/xB7b4USWdiv7-WjdECumNFjgyQS--KDYZWCOdAxjq5E/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8y/LzI2LzUxMnB4SWNv/bi1zdW5zZXRfcGhv/dG9fbm90X2ZvdW5k/LnBuZw"}
                 alt={category}
@@ -48,7 +52,7 @@ const CategoryStrip = () => {
           </div>
         ))
       ) : (
-        // Shimmer placeholders for categories
+        // Shimmer placeholders for categories for modern look
         [...Array(4)].map((_, idx) => (
           <div
             key={idx}

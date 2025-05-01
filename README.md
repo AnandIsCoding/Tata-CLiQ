@@ -17,7 +17,7 @@ A fast, responsive e-commerce frontend inspired by [Tata CLiQ](https://www.tatac
 
 - ⚡ **Fast builds** with Vite
 - 🗏️ Category-specific product views
-- 🎨 Fully **responsive design** using Tailwind CSS
+- 🎨 Fully **responsive design** using Tailwind CSS and disabled zoom from trackpad
 - 🔐 Auth0 login support
 - 💖 Wishlist system powered by Redux Toolkit
 - 🖼️ Hero image **slider with autoplay**
@@ -169,7 +169,7 @@ firebase deploy
 - Ensured layout consistency on refresh and direct access to nested paths.
 
 ### 4. 📤 Social Media Sharing
-- WhatsApp and Instagram buttons were added using `navigator.share()` and anchor schemes for broader compatibility.
+- WhatsApp and Instagram buttons were added using `encodeURIComponent` and anchor schemes for broader compatibility.
 
 ---
 

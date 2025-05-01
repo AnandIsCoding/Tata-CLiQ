@@ -1,52 +1,64 @@
+// Function to build the navigation menu with categorized products from the FakeStore API
 async function buildFakeStoreMenu() {
-  const categories = await fetch("https://fakestoreapi.com/products/categories")
-    .then((res) => res.json());
+  try {
+    // Step 1: Fetch all product categories
+    const categoryResponse = await fetch("https://fakestoreapi.com/products/categories");
+    const categories = await categoryResponse.json();
 
-  const menuData = {
-    Categories: {
-      "Men's Fashion": [],
-      "Women's Fashion": [],
-      Electronics: [],
-      Jewelery: []
-    },
-    Brands: {
-      "Top Brands": ["Nike", "Adidas", "Puma", "Levi's"] 
-    }
-  };
-
-  for (const category of categories) {
-    const products = await fetch(`https://fakestoreapi.com/products/category/${category}`)
-      .then((res) => res.json());
-
-      switch (category) {
-        case "men's clothing":
-          menuData.Categories["Men's Fashion"] = products.map((p) => ({
-            id: p.id,
-            title: p.title,
-          }));
-          break;
-        case "women's clothing":
-          menuData.Categories["Women's Fashion"] = products.map((p) => ({
-            id: p.id,
-            title: p.title,
-          }));
-          break;
-        case "electronics":
-          menuData.Categories["Electronics"] = products.map((p) => ({
-            id: p.id,
-            title: p.title,
-          }));
-          break;
-        case "jewelery":
-          menuData.Categories["Jewelery"] = products.map((p) => ({
-            id: p.id,
-            title: p.title,
-          }));
-          break;
+    // Step 2: Initialize menu data structure
+    const menuData = {
+      Categories: {
+        "Men's Fashion": [],
+        "Women's Fashion": [],
+        Electronics: [],
+        Jewelery: []
+      },
+      Brands: {
+        "Top Brands": ["Nike", "Adidas", "Puma", "Levi's"]
       }
-      
-  }
+    };
 
-  return menuData;
+    // Step 3: Fetch products for each category and organize into menuData
+    for (const category of categories) {
+      try {
+        const productResponse = await fetch(`https://fakestoreapi.com/products/category/${category}`);
+        const products = await productResponse.json();
+
+        const formattedProducts = products.map(p => ({
+          id: p.id,
+          title: p.title
+        }));
+
+        switch (category) {
+          case "men's clothing":
+            menuData.Categories["Men's Fashion"] = formattedProducts;
+            break;
+          case "women's clothing":
+            menuData.Categories["Women's Fashion"] = formattedProducts;
+            break;
+          case "electronics":
+            menuData.Categories["Electronics"] = formattedProducts;
+            break;
+          case "jewelery":
+            menuData.Categories["Jewelery"] = formattedProducts;
+            break;
+          default:
+            console.warn(`Unhandled category: ${category}`);
+        }
+      } catch (productError) {
+        console.error(`Error fetching products for category "${category}":`, productError);
+      }
+    }
+
+    // Step 4: Return the final menu data
+    return menuData;
+  } catch (err) {
+    console.error("Error building menu:", err);
+    return {
+      Categories: {},
+      Brands: {}
+    };
+  }
 }
-export default buildFakeStoreMenu
+
+export default buildFakeStoreMenu;

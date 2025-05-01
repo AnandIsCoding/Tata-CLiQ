@@ -1,6 +1,7 @@
 import React from "react";
 
 const Offer = () => {
+  // component with backround image 
   return (
     <div className="relative rounded-lg mx-4 md:mx-32 my-6 p-4 flex justify-between items-center text-white overflow-hidden h-28 bg-cover bg-center"
       style={{

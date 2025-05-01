@@ -8,89 +8,115 @@ import { IoBagHandle } from "react-icons/io5";
 import { useAuth0 } from "@auth0/auth0-react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart,removeFromCart,clearCart } from "../redux/slices/cart.slice";
-import { addToWishlist,removeFromWishlist } from "../redux/slices/wishlist.slice";
+import {
+  addToCart,
+  removeFromCart,
+  clearCart,
+} from "../redux/slices/cart.slice";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../redux/slices/wishlist.slice";
 import { useLocation } from "react-router-dom";
 
+// Reusable ProductCard component
 
 function ProductCard({ product }) {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  // subscribe cartItems and wishlistItems from redux store
   const cartItems = useSelector((state) => state.cart.items);
-    const wishlistItems = useSelector((state) => state.wishlist.items || [])
+  const wishlistItems = useSelector((state) => state.wishlist.items || []);
 
-    const location = useLocation();
-const isCartOrWishlistPage = location.pathname === "/cart" || location.pathname === "/wishlist";
+  const location = useLocation();
+  // check if the current pathurl is wishlist or cart, than later to user in productcard css to make it responsive for that page
+  const isCartOrWishlistPage =
+    location.pathname === "/cart" || location.pathname === "/wishlist";
 
-
+    // handleNavigation handler for product, navigate to product/id du=ynamically
   const handleNavigation = (id) => {
     navigate(`/product/${id}`);
   };
 
+  // handleCart btn handler
   const handleCart = (event, product) => {
-    event.stopPropagation(); 
-  event.preventDefault();
-    
-  // Double check isAuthenticated
-  if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
-    console.log("User not authenticated, redirecting to login...");
-    toast('Please login to save your cart.', { icon: "🔒" });
-    loginWithRedirect(); 
-    return;
-  } else {      
-      if (cartItems.some((item) => item.id === product?.id)) {
-        dispatch(removeFromCart(product));
-        toast.success('Product Removed From Cart');
-      } else {
-        dispatch(addToCart(product));
-        toast.success('Product Added To Cart');
-      }
-    }
-  };
-  
-  const handleWishlist = (event,product) => {
-    event.stopPropagation(); // stop navigating
+    event.stopPropagation(); //stop propagation
     event.preventDefault();
+
+    // Double check isAuthenticated, if user not loged in than loginWithRedirect
     if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
       console.log("User not authenticated, redirecting to login...");
-      toast('Please login to save your cart.', { icon: "🔒" });
-      loginWithRedirect(); 
+      toast("Please login to save your cart.", { icon: "🔒" });
+      loginWithRedirect();
       return;
-    }else {
-      if (wishlistItems.some((item) => item.id === product?.id)) {
-        dispatch(removeFromWishlist(product));
-        toast.success('Product Removed From Wishlist !!');
+    } else {
+      // if isAuthenticated, if user logged in than 
+      // if product id is equal to any item in cartItems of user than remove from cart, dispatch removeFromCart
+      // otherwise add to cart, dispatch addToCart
+      if (cartItems.some((item) => item.id === product?.id)) {
+        dispatch(removeFromCart(product));
+        toast.success("Product Removed From Cart");
       } else {
-        dispatch(addToWishlist(product));
-        toast.success('Product Added To Wishlist !!');
+        dispatch(addToCart(product));
+        toast.success("Product Added To Cart");
       }
     }
   };
-  
+
+  // handleWishlist Btn handler
+  const handleWishlist = (event, product) => {
+    event.stopPropagation(); // stop navigating, stop propagation
+    event.preventDefault();
+      // Double check isAuthenticated, if user not loged in than loginWithRedirect
+    if (typeof isAuthenticated !== "undefined" && !isAuthenticated) {
+      console.log("User not authenticated, redirecting to login...");
+      toast("Please login to save your cart.", { icon: "🔒" });
+      loginWithRedirect();
+      return;
+    } else {
+      // if isAuthenticated, if user logged in than 
+      // if product id is equal to any item in wishlsitItems of user than remove from wishlist, dispatch removeWishlsiCart
+      // otherwise add to wishlist, dispatch addToWishlist
+      if (wishlistItems.some((item) => item.id === product?.id)) {
+        dispatch(removeFromWishlist(product));
+        toast.success("Product Removed From Wishlist !!");
+      } else {
+        dispatch(addToWishlist(product));
+        toast.success("Product Added To Wishlist !!");
+      }
+    }
+  };
+
   return (
     <div
       key={product?.id}
       onClick={() => handleNavigation(product?.id)}
-      className={`bg-white cursor-pointer p-4 relative overflow-hidden group rounded-md hover:shadow-lg transition-all ${isCartOrWishlistPage ? 'mt-2 md:mt-4 mx-2 md:mx-84 md:px-4' : ''}`}
+      className={`bg-white cursor-pointer p-4 relative overflow-hidden group rounded-md hover:shadow-lg transition-all ${
+        isCartOrWishlistPage ? "mt-2 md:mt-4 mx-2 md:mx-84 md:px-4" : ""
+      }`}
     >
+    {/* empty heart is already in wishlist other wise filled heart💖 */}
       <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
         <button
-        type="button"  
+          type="button"
           className="p-1 rounded-full hover:bg-gray-100 cursor-pointer"
           onClick={(event) => handleWishlist(event, product)}
         >
-          {
-            wishlistItems.some((item)=>item.id === product.id) ? <IoMdHeart size={20} color="red"/> : <IoMdHeartEmpty size={20} color="red" />
-          }
+          {wishlistItems.some((item) => item.id === product.id) ? (
+            <IoMdHeart size={20} color="red" />
+          ) : (
+            <IoMdHeartEmpty size={20} color="red" />
+          )}
         </button>
+        {/* if product id already in cart than empty bag otherwise filled bag👜 */}
         <button
-        type="button"  
+          type="button"
           className=" p-1  rounded-full hover:bg-gray-200 cursor-pointer"
           onClick={(event) => handleCart(event, product)}
         >
-        {/* filter if in cartItems any cart's id is equal to product's id, if yes than it will return that item, otherwise [] so need to check if returned result's length>0 */}
-          {cartItems.filter((item) => item.id === product.id).length>0 ? (
+          {/* filter if in cartItems any cart's id is equal to product's id, if yes than it will return that item, otherwise [] so need to check if returned result's length>0 */}
+          {cartItems.filter((item) => item.id === product.id).length > 0 ? (
             <IoBagHandle color="red" size={20} />
           ) : (
             <MdOutlineShoppingBag color="red" size={20} />
@@ -98,14 +124,15 @@ const isCartOrWishlistPage = location.pathname === "/cart" || location.pathname 
         </button>
       </div>
 
-      {/* Image */}
+
+      {/* Image of product */}
       <img
         src={product?.image}
         alt={product?.title}
         className="h-44 w-full object-contain mb-4"
       />
 
-      {/* Details */}
+      {/* Details of product*/}
       <div className="text-gray-500 text-xs mb-1">Brand Name</div>
       <div className="text-gray-800 font-semibold text-sm line-clamp-2 min-h-[40px]">
         {product?.title}

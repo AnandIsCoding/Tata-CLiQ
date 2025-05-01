@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
 
-// Lazy imports
+// Lazy imports components and pages
 const Home = lazy(() => import('./pages/Home'));
 const SpecificCategory = lazy(() => import('./pages/SpecificCategory'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -35,7 +35,7 @@ function App() {
  
 
   return (
-    <div className='select-none' onContextMenu={disableContextMenu} >
+    <div className='select-none' onContextMenu={disableContextMenu} > 
     <ScrollToTop/> 
      <Suspense
       // Fallback loader while components are loading
@@ -45,9 +45,9 @@ function App() {
           </div>
         }
       >
-
+{/* fixed  Navbar Component for all pages*/}
 <Navbar/>
-      
+      {/* all routes defined */}
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/:category' element={<SpecificCategory/>} />
@@ -59,6 +59,7 @@ function App() {
         <Route path='/cliq-care' element={ <CliqCare/> } />
       </Routes>
 
+{/* Footerfor all pages */}
       <Footer/> 
       </Suspense>
            

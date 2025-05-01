@@ -7,6 +7,7 @@ import { HiMiniShoppingCart } from "react-icons/hi2";
 import { BiSolidOffer } from "react-icons/bi";
 import { BsCreditCard2FrontFill } from "react-icons/bs";
 
+// helptopics array of objects, each object with icon and title with description
 const helpTopics = [
   { icon: <FaShoppingBag />, title: "Shopping", desc: "Place order, payment types, delivery modes, etc." },
   { icon: <FaTag />, title: "Offers & Promotions", desc: "Deals & offers, redeem offer & coupon, etc." },
@@ -20,6 +21,7 @@ const helpTopics = [
   { icon: <FaGift />, title: "CLiQ Cash", desc: "Redeem gift cards, manage CLiQ points, etc." },
 ];
 
+// other issues with icon and label text
 const otherIssues = [
   { icon: <FiPackage />, label: "Product related" },
   { icon: <FaGlobe />, label: "Website related" },
@@ -36,6 +38,7 @@ function CliqCare() {
         {/* Left Sidebar */}
         <div className="bg-white p-4 rounded-md">
           <h2 className="mb-4 text-lg font-semibold">All Help Topics</h2>
+          {/* map helptopics display icon title and description */}
           <ul className="space-y-4">
             {helpTopics.map((topic, index) => (
               <li key={index} className="flex items-start gap-3 ">
@@ -57,12 +60,12 @@ function CliqCare() {
               <h2 className="text-xl font-semibold mb-1">CLiQ Care</h2>
               <p className="text-sm text-gray-600">Your one stop solution center. We are happy to help you.</p>
             </div>
-            <img src="https://www.tatacliq.com/src/account/components/img/cliqCare.svg" alt="Support" className="w-28 h-28 object-contain hidden md:block" />
+            <svg src="https://www.tatacliq.com/src/account/components/img/cliqCare.svg" alt="Support" className="w-28 h-28 object-contain hidden md:block" />
           </div>
 
           {/* Recent Orders Card */}
           <div className="bg-white rounded-lg shadow p-6 text-center">
-            <img src="https://www.tatacliq.com/src/account/components/img/noLogin.svg" alt="Orders" className="mx-auto w-40 mb-4" />
+            <svg src="https://www.tatacliq.com/src/account/components/img/noLogin.svg" alt="Orders" className="mx-auto w-40 mb-4" />
             <h3 className="font-semibold text-lg">Need help with recent orders?</h3>
             <p className="text-sm text-gray-600 mt-1 mb-3">
               You have to login to TATA CLiQ app in order to view your recent orders.
@@ -74,9 +77,10 @@ function CliqCare() {
           <div className="bg-white p-4 rounded-md">
             <h2 className="text-lg font-semibold mb-4">Other Issues</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {otherIssues.map((issue, idx) => (
+            {/* map other issues with  icon and label with hover effect*/}
+              {otherIssues.map((issue, index) => (
                 <div
-                  key={idx}
+                  key={index}
                   className="p-4 rounded-md bg-pink-100 text-center hover:bg-pink-200 transition cursor-pointer"
                 >
                   <div className="flex justify-center text-2xl  text-pink-400 hover:text-pink-500 mb-2">{issue.icon}</div>

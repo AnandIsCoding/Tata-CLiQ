@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 
+// static slides image urls array of objects, each object with image url
 const slides = [
   {
     image: 'https://assets.tatacliq.com/medias/sys_master/images/64869480988702.jpg'
@@ -24,6 +25,7 @@ const slides = [
 ];
 
 export default function Slider() {
+  // current to keep track of current image url
   const [current, setCurrent] = useState(0);
 
   // increment current value by 1 of current is not equal to slides.length-1 (2), if current is 2 than setCurrent to 0
@@ -59,7 +61,7 @@ export default function Slider() {
         </div>
       ))}
 
-      {/* Arrows */}
+      {/* Arrows to naxt and previous slides */}
       <div className="absolute top-1/2 w-full flex justify-between items-center px-5 transform -translate-y-1/2">
         <button onClick={prevSlide} className="bg-[#f2e5e59d] bg-opacity-70 rounded-full cursor-pointer w-14 h-14 flex justify-center items-center text-2xl hover:bg-opacity-100">
           &#10094;

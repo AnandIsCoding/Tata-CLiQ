@@ -1,5 +1,5 @@
 import React from 'react'
-
+// component that will be displayed when on products page share btn will be clicked, and onClick of whatsapp redirect to share in whatsapp, on insta same behaviour
 function ShareDialog({showShareDialog, setShowshareDialog}) {
     
   return (

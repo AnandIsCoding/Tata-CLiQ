@@ -67,4 +67,73 @@ body {
     cursor: pointer;
   }
   
+  @media (max-width: 1024px) {
+    .mega-dropdown {
+      left: 0;
+      min-width: 100%;
+      flex-wrap: wrap;
+      padding: 15px;
+      box-shadow: none;
+      max-height: 40vh;
+      overflow-y: scroll;
+    }
   
+    .column {
+      flex: 1 1 45%;
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mega-dropdown {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .column {
+      flex: 1 1 100%;
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  
+    .column h4 {
+      font-size: 34px;
+    }
+  
+    .column li {
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mega-dropdown {
+      padding: 8px;
+      min-width: 100vw;
+    }
+  
+    .column h4 {
+      font-size: 13px;
+    }
+  
+    .column li {
+      font-size: 12px;
+    }
+  
+    .menu-item {
+      font-size: 14px;
+      padding: 6px;
+    }
+  }
+
+  .mega-dropdown,
+.mega-dropdown * {
+  color: #333; /* Dark text color */
+}
+
+  /* Ensure it's not clipped by parent */
+.parent-container {
+  position: relative;
+  overflow: visible !important;
+  z-index: 10;
+}

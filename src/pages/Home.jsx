@@ -5,10 +5,11 @@ import CategoryStrip from '../components/CategoryStrip'
 import BankOffersStrip from '../mini-Compo/BankOffersStrip'
 import Banner from '../mini-Compo/Banner'
 
+// Home page / 
 function Home() {
   return (
     <div>
-
+{/* offer, Slider, than t=display categories than display Some Banners */}
         <Offer/>
         <Slider/>
         <CategoryStrip/>

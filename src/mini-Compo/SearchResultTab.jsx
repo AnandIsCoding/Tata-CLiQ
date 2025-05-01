@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// component that will be dispalyed if searchtext.length is greater that 0, accept search and setSearch props
 function SearchResultTab({ search, setSearch }) {
+  // product state, and filterd products state, filteing will be done on the basis of if product.title includes search text
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ function SearchResultTab({ search, setSearch }) {
       setFilteredProducts([]);
       return;
     }
+    // filter product.title includes search text, lowercase both
     const filtered = products.filter((product) =>
       product.title.toLowerCase().includes(search.toLowerCase())
     );
@@ -53,9 +56,12 @@ function SearchResultTab({ search, setSearch }) {
       >
         X
       </span>
+      {/* fallback if filtered product length is 0 */}
       {filteredProducts?.length === 0 && search && (
         <div className="p-3 text-gray-500">No products found.</div>
       )}
+      {/* if length > 0 than from filteredProducts array slice first 20 products and map them*/}
+      {/* onClick of mapped filtered products navigate to that specific product id page */}
       {filteredProducts?.slice(0,20)?.map((item) => (
         <div
           key={item?.id}
