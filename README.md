@@ -25,7 +25,7 @@ A fast, responsive e-commerce frontend inspired by [Tata CLiQ](https://www.tatac
 - 🔬 Component testing with Vitest & Testing Library
 - 📤 **Share products via WhatsApp & Instagram** buttons
 - 📦 **Cart & Wishlist functionality** with persistent state
-- 📘 **Care page** for customer support and FAQs
+- 📘 **Care page** for customer support
 
 ---
 
