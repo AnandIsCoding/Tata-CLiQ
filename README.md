@@ -160,9 +160,9 @@ firebase deploy
 
 ### 2. 🧹 Tailwind + Custom Styling
 - Tailwind v4 introduced some structural changes and purging tweaks.
-- Tweaked `tailwind.config.js` for safe class detection in dynamic content.
+- Tweaked `vite.config.js` for safe class detection in dynamic content.
 
-### 3. 🔄 React Router Dom v7 Migration
+### 3. 🔄 React Router Dom v7 
 - Dynamic routing via `useParams()` needed care while handling category routes.
 - Ensured layout consistency on refresh and direct access to nested paths.
 
@@ -190,7 +190,7 @@ Pull requests are welcome! If you have suggestions or bug fixes, feel free to op
 
 ## 🎓 Project Context
 
-This project was developed as part of **AlmaBetter's Sprint 1 Capstone Project** for the Full Stack Web Development Program. It represents practical application of frontend concepts including React 19, TailwindCSS 4, component testing, state management, and modern tooling like Vite.
+This project was developed as part of **AlmaBetter's Sprint 1 Capstone Project** for the Full Stack Web Development Program. It represents practical application of frontend concepts including React, TailwindCSS 4, component testing, state management, and modern tooling like Vite.
 
 > **Special thanks to [AlmaBetter](https://almabetter.com)** for providing world-class mentorship, project guidance, and real-world oriented learning!
 
