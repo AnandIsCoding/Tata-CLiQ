@@ -94,9 +94,7 @@ We use [`Vitest`](https://vitest.dev) and [`@testing-library/react`](https://tes
 
 ```bash
 npm run test
-```
 
-> ℹ️ **Note:** For components like `<Slider />` that use `backgroundImage`, use `data-testid` instead of `getByRole("img")`.
 
 ---
 
